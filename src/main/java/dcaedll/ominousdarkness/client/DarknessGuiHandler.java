@@ -27,6 +27,9 @@ public class DarknessGuiHandler
 	{
 		Minecraft mc = Minecraft.getInstance();
 		LocalPlayer player = mc.player;
+		if (player.isCreative())
+			return;
+		
 		player.getCapability(DarknessHandlerProvider.CAP).ifPresent(cap ->
 		{
 			if (cap.get_factor() <= 0)
