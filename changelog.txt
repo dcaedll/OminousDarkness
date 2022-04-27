@@ -1,0 +1,14 @@
+1.0.2:
+	- Updated base filename;
+	- Asset pack now has a correct id;
+	- Minor decorative changes.
+
+	QoL:
+	- Made overlay effect slightly more bright and also upped its alpha threshold;
+	- Players in spectator gamemode no longer get processed and killed. Overlay effect is also no longer rendered for them.
+
+1.0.1:
+	- Updated death message string.
+
+1.0.0:
+	- Initial release.

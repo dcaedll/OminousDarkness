@@ -24,7 +24,7 @@ public class DarknessProcessor
 	
 	public static void tickPlayer(@Nonnull final ServerPlayer player)
 	{
-		if (player.isCreative())
+		if (player.isCreative() || player.isSpectator())
 			return;
 		
     	player.getCapability(DarknessHandlerProvider.CAP).ifPresent(cap ->

@@ -27,7 +27,7 @@ public class DarknessGuiHandler
 	{
 		Minecraft mc = Minecraft.getInstance();
 		LocalPlayer player = mc.player;
-		if (player.isCreative())
+		if (player.isCreative() || player.isSpectator())
 			return;
 		
 		player.getCapability(DarknessHandlerProvider.CAP).ifPresent(cap ->
@@ -38,7 +38,7 @@ public class DarknessGuiHandler
 			RenderSystem.enableBlend();
 			RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_BLOCKS);
-			RenderSystem.setShaderColor(0.087f, 0.063f, 0.181f, cap.get_factor() * 0.93f);
+			RenderSystem.setShaderColor(0.107f, 0.083f, 0.201f, cap.get_factor() * 0.96f);
 		    RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		    _renderPortalIcon(mc, screenWidth, screenHeight);
 			RenderSystem.disableBlend();
