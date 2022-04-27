@@ -2,6 +2,7 @@ package dcaedll.ominousdarkness.config;
 
 import java.util.*;
 
+import dcaedll.ominousdarkness.util.*;
 import net.minecraftforge.common.*;
 import net.minecraftforge.common.ForgeConfigSpec.*;
 
@@ -86,14 +87,14 @@ public class ConfigCommon
 						"Any parameters can be omitted, in this case they are set to their default values",
 						"Examples:",
 						"\"minecraft:hunger[duration=2][timing=50%]\" would apply Hunger I to a player for 2 seconds roughly halfway through (that is, if growth_time is set to 20, the effect would be applied at 10 seconds)",
-						"\"minecraft:blindness[timing=2.8s][level=2]\" would apply Slowness II to a player for as long as they are being consumed by the darkness, starting at 2.8 seconds",
+						"\"minecraft:slowness[timing=2.8s][level=2]\" would apply Slowness II to a player for as long as they are being consumed by the darkness, starting at 2.8 seconds",
 						"\"minecraft:strength\" would apply Strength I to a player right after they start gaining the darkness level, with the effect persisting for as long as their darkness level is higher than 0")
 				.defineListAllowEmpty(effectsPath, () -> effectsDef, item -> itemIsNotBlankString(item));
 	}
 	
 	private static boolean itemIsNotBlankString(Object item)
 	{
-		return item instanceof String && !((String)item).isBlank();
+		return item instanceof String && !StringHelper.isBlank((String)item);
 	}
 	
 	private static ArrayList<String> initVanillaShinyItems()

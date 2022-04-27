@@ -8,7 +8,7 @@ import dcaedll.ominousdarkness.*;
 import net.minecraftforge.common.*;
 import net.minecraftforge.fml.*;
 import net.minecraftforge.fml.config.*;
-import net.minecraftforge.fml.event.config.*;
+import net.minecraftforge.fml.config.ModConfig.*;
 
 public class ConfigHandler
 {
@@ -25,13 +25,9 @@ public class ConfigHandler
     	ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, common.getRight());
 	}
 	
-	public static void configLoading(final ModConfigEvent.Loading event)
+	public static void onModConfig(final ModConfigEvent event)
 	{
 		DarknessProcessor.reloadEffects();
-	}
-	
-	public static void configReloading(final ModConfigEvent.Reloading event)
-	{
 	}
 	
 	public static ConfigCommon getCommonCustom()

@@ -2,32 +2,43 @@ package dcaedll.ominousdarkness.client;
 
 import org.lwjgl.opengl.*;
 
+import com.mojang.blaze3d.matrix.*;
 import com.mojang.blaze3d.systems.*;
-import com.mojang.blaze3d.vertex.*;
 
 import dcaedll.ominousdarkness.capability.*;
+import net.minecraft.block.*;
 import net.minecraft.client.*;
-import net.minecraft.client.player.*;
+import net.minecraft.client.entity.player.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.texture.*;
-import net.minecraft.world.level.block.*;
+import net.minecraft.client.renderer.vertex.*;
 import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.client.gui.*;
+import net.minecraftforge.client.event.*;
+import net.minecraftforge.client.event.RenderGameOverlayEvent.*;
+import net.minecraftforge.common.*;
+import net.minecraftforge.eventbus.api.*;
 
 @SuppressWarnings("deprecation")
 @OnlyIn(Dist.CLIENT)
 public class DarknessGuiHandler
 {
-	public static void init()
+	@SubscribeEvent
+	public static void onRenderVignette(RenderGameOverlayEvent.Pre event)
 	{
-    	OverlayRegistry.registerOverlayAbove(ForgeIngameGui.VIGNETTE_ELEMENT, "darknesstakeme.vignette", DarknessGuiHandler::_renderDarknessEffect);
+		if (event.getType() == ElementType.ALL)
+			_renderDarknessEffect(event.getMatrixStack(), event.getWindow());
 	}
 	
-	private static void _renderDarknessEffect(ForgeIngameGui gui, PoseStack poseStack, float partialTicks, int screenWidth, int screenHeight)
+	public static void init()
+	{
+		MinecraftForge.EVENT_BUS.register(DarknessGuiHandler.class);
+	}
+	
+	private static void _renderDarknessEffect(MatrixStack matrixStack, MainWindow window)
 	{
 		Minecraft mc = Minecraft.getInstance();
-		LocalPlayer player = mc.player;
-		if (player.isCreative())
+		ClientPlayerEntity player = mc.player;
+		if (player.isCreative() || player.isSpectator())
 			return;
 		
 		player.getCapability(DarknessHandlerProvider.CAP).ifPresent(cap ->
@@ -37,12 +48,11 @@ public class DarknessGuiHandler
 			
 			RenderSystem.enableBlend();
 			RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_BLOCKS);
-			RenderSystem.setShaderColor(0.087f, 0.063f, 0.181f, cap.get_factor() * 0.93f);
-		    RenderSystem.setShader(GameRenderer::getPositionTexShader);
-		    _renderPortalIcon(mc, screenWidth, screenHeight);
+			mc.getTextureManager().bind(AtlasTexture.LOCATION_BLOCKS);
+			RenderSystem.color4f(0.107f, 0.083f, 0.201f, cap.get_factor() * 0.96f);
+		    _renderPortalIcon(mc, window.getGuiScaledWidth(), window.getGuiScaledHeight());
 			RenderSystem.disableBlend();
-			RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
+			RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
 		});
 	}
 	
@@ -54,9 +64,9 @@ public class DarknessGuiHandler
 	    float u1 = portalSprite.getU1();
 	    float v1 = portalSprite.getV1();
 	    
-	    Tesselator tesselator = Tesselator.getInstance();
+	    Tessellator tesselator = Tessellator.getInstance();
 	    BufferBuilder bufferbuilder = tesselator.getBuilder();
-	    bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+	    bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
 	    bufferbuilder.vertex(0.0D, (double)screenHeight, -90.0d).uv(u0, v1).endVertex();
 	    bufferbuilder.vertex((double)screenWidth, (double)screenHeight, -90.0d).uv(u1, v1).endVertex();
 	    bufferbuilder.vertex((double)screenWidth, 0.0D, -90.0d).uv(u1, v0).endVertex();

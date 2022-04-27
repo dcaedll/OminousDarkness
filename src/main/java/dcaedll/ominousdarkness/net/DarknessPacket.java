@@ -6,7 +6,7 @@ import dcaedll.ominousdarkness.*;
 import net.minecraft.network.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.fml.*;
-import net.minecraftforge.network.*;
+import net.minecraftforge.fml.network.*;
 
 public class DarknessPacket
 {
@@ -22,12 +22,12 @@ public class DarknessPacket
 		this.factor = factor;
 	}
 	
-	public static void encode(DarknessPacket packet, FriendlyByteBuf buf)
+	public static void encode(DarknessPacket packet, PacketBuffer buf)
 	{
 		buf.writeFloat(packet.factor);
 	}
 	
-	public static DarknessPacket decode(FriendlyByteBuf buf)
+	public static DarknessPacket decode(PacketBuffer buf)
 	{
 		DarknessPacket packet = new DarknessPacket();
 		packet.factor = buf.readFloat();

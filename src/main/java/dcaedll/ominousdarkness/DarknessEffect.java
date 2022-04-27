@@ -3,14 +3,14 @@ package dcaedll.ominousdarkness;
 import javax.annotation.*;
 
 import dcaedll.ominousdarkness.util.*;
-import net.minecraft.core.*;
-import net.minecraft.resources.*;
-import net.minecraft.world.effect.*;
-import net.minecraft.world.entity.player.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.potion.*;
+import net.minecraft.util.*;
+import net.minecraft.util.registry.*;
 
 public class DarknessEffect
 {
-	private MobEffect _mobEffect;
+	private Effect _mobEffect;
 	private String _name;
 	private boolean _indefinite;
 	private int _duration = 40;
@@ -64,7 +64,7 @@ public class DarknessEffect
 	}
 	
 	@Nullable
-	public MobEffect get_mobEffect()
+	public Effect get_mobEffect()
 	{
 		return _mobEffect;
 	}
@@ -77,15 +77,15 @@ public class DarknessEffect
 		set_indefinite(true);
 	}
 	
-	public void apply(@Nonnull Player player)
+	public void apply(@Nonnull PlayerEntity player)
 	{
 		if (_mobEffect != null)
 			player.addEffect(newEffectInstance());
 	}
 	
-	private MobEffectInstance newEffectInstance()
+	private EffectInstance newEffectInstance()
 	{
-		MobEffectInstance i = new MobEffectInstance(_mobEffect, get_duration(), get_power() - 1);
+		EffectInstance i = new EffectInstance(_mobEffect, get_duration(), get_power() - 1);
 		i.setNoCounter(get_indefinite());
 		return i;
 	}

@@ -1,6 +1,6 @@
 package dcaedll.ominousdarkness;
 
-import net.minecraft.world.damagesource.*;
+import net.minecraft.util.*;
 
 public class DarknessDamageSource
 {

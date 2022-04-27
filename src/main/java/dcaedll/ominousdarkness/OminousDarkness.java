@@ -1,14 +1,15 @@
 package dcaedll.ominousdarkness;
 
-import org.slf4j.*;
+import org.apache.logging.log4j.*;
+import org.apache.logging.log4j.Logger;
 
-import com.mojang.logging.*;
-
+import dcaedll.ominousdarkness.capability.*;
 import dcaedll.ominousdarkness.client.*;
 import dcaedll.ominousdarkness.config.*;
 import dcaedll.ominousdarkness.event.*;
 import dcaedll.ominousdarkness.net.*;
 import net.minecraftforge.common.*;
+import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.event.lifecycle.*;
 import net.minecraftforge.fml.javafmlmod.*;
@@ -17,7 +18,7 @@ import net.minecraftforge.fml.javafmlmod.*;
 public class OminousDarkness
 {
 	public static final String MODID = "ominousdarkness";
-    public static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger();
 	
     static
     {
@@ -28,8 +29,7 @@ public class OminousDarkness
     {
     	ConfigHandler.register();
     	
-    	FMLJavaModLoadingContext.get().getModEventBus().addListener(ConfigHandler::configLoading);
-    	FMLJavaModLoadingContext.get().getModEventBus().addListener(ConfigHandler::configReloading);
+    	FMLJavaModLoadingContext.get().getModEventBus().addListener(ConfigHandler::onModConfig);
     	FMLJavaModLoadingContext.get().getModEventBus().addListener(this::_setup);
     	FMLJavaModLoadingContext.get().getModEventBus().addListener(this::_clientSetup);
     	MinecraftForge.EVENT_BUS.register(new EventHandler());
@@ -38,6 +38,7 @@ public class OminousDarkness
     private void _setup(final FMLCommonSetupEvent event)
     {
     	LOGGER.info("Embracing the darkness...");
+    	CapabilityManager.INSTANCE.register(IDarknessEmbrace.class, new DarknessStorage(), DarknessHandler::new);
     	PacketHandler.init();
     }
     

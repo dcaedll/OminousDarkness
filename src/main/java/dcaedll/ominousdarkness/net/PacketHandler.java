@@ -1,9 +1,9 @@
 package dcaedll.ominousdarkness.net;
 
 import dcaedll.ominousdarkness.*;
-import net.minecraft.resources.*;
-import net.minecraftforge.network.*;
-import net.minecraftforge.network.simple.*;
+import net.minecraft.util.*;
+import net.minecraftforge.fml.network.*;
+import net.minecraftforge.fml.network.simple.*;
 
 public class PacketHandler
 {

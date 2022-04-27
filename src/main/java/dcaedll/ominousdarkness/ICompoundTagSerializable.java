@@ -4,7 +4,7 @@ import net.minecraft.nbt.*;
 
 public interface ICompoundTagSerializable
 {
-	void serializeNBT(CompoundTag tag);
+	void serializeNBT(CompoundNBT tag);
 	
-	void deserializeNBT(CompoundTag tag);
+	void deserializeNBT(CompoundNBT tag);
 }

@@ -1,6 +1,6 @@
 modLoader="javafml"
-loaderVersion="[40,)"
-license="MIT"
+loaderVersion="[36,)"
+license="https://raw.githubusercontent.com/dcaedll/OminousDarkness/main/LICENSE"
 issueTrackerURL="https://github.com/dcaedll/OminousDarkness/issues"
 
 [[mods]]
@@ -10,7 +10,7 @@ displayName="Ominous Darkness"
 updateJSONURL="https://raw.githubusercontent.com/dcaedll/OminousDarkness/main/update.json"
 displayURL="https://github.com/dcaedll/OminousDarkness"
 logoFile="ominous_darkness_logo.png"
-credits="toujourspareil (https://twitter.com/toujourspareil_)"
+credits="toujourspareil https://twitter.com/toujourspareil_"
 authors="dcaedll"
 description='''
 Being in the darkness for too long is now life-threatening, as you start feeling the presence of something evil within.
@@ -23,12 +23,6 @@ Watch out and make sure to bring some light with you to dispel the darkness!
 [[dependencies.ominousdarkness]]
     modId="forge"
     mandatory=true
-    versionRange="[40,)"
-    ordering="NONE"
-    side="BOTH"
-[[dependencies.ominousdarkness]]
-    modId="minecraft"
-    mandatory=true
-    versionRange="[1.18.2,1.19)"
+    versionRange="[36,)"
     ordering="NONE"
     side="BOTH"
