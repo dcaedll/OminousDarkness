@@ -1,0 +1,30 @@
+modLoader="javafml"
+loaderVersion="[40,)"
+license="MIT"
+issueTrackerURL="https://github.com/dcaedll/OminousDarkness/issues"
+
+[[mods]]
+modId="ominousdarkness"
+version="${file.jarVersion}"
+displayName="Ominous Darkness"
+#updateJSONURL="https://change.me.example.invalid/updates.json"
+displayURL="https://github.com/dcaedll/OminousDarkness"
+logoFile="ominous_darkness_logo.png"
+credits="toujourspareil (twitter.com/toujourspareil_)"
+authors="dcaedll"
+description='''
+Being in the darkness for too long is now life-threatening, as you start feeling the presence of something evil within.
+'''
+
+[[dependencies.ominousdarkness]]
+    modId="forge"
+    mandatory=true
+    versionRange="[40,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.ominousdarkness]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.18.2,1.19)"
+    ordering="NONE"
+    side="BOTH"
