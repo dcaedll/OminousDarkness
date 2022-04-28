@@ -2,7 +2,6 @@ package dcaedll.ominousdarkness.config;
 
 import java.util.*;
 
-import dcaedll.ominousdarkness.util.*;
 import net.minecraftforge.common.*;
 import net.minecraftforge.common.ForgeConfigSpec.*;
 
@@ -94,7 +93,7 @@ public class ConfigCommon
 	
 	private static boolean itemIsNotBlankString(Object item)
 	{
-		return item instanceof String && !StringHelper.isBlank((String)item);
+		return item instanceof String && !((String)item).isBlank();
 	}
 	
 	private static ArrayList<String> initVanillaShinyItems()

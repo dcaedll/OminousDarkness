@@ -8,11 +8,12 @@ import dcaedll.ominousdarkness.capability.*;
 import dcaedll.ominousdarkness.config.*;
 import dcaedll.ominousdarkness.net.*;
 import net.minecraft.client.*;
-import net.minecraft.client.entity.player.*;
-import net.minecraft.entity.player.*;
-import net.minecraft.item.*;
+import net.minecraft.client.player.*;
+import net.minecraft.server.level.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.fml.network.*;
+import net.minecraftforge.fmllegacy.network.*;
 
 public class DarknessProcessor
 {
@@ -21,7 +22,7 @@ public class DarknessProcessor
 	private static DarknessEffect[] _eff;
 	private static float _effLowerBound = 0.0f;
 	
-	public static void tickPlayer(@Nonnull final ServerPlayerEntity player)
+	public static void tickPlayer(@Nonnull final ServerPlayer player)
 	{
 		if (player.isCreative() || player.isSpectator())
 			return;
@@ -47,14 +48,14 @@ public class DarknessProcessor
 	@OnlyIn(Dist.CLIENT)
 	public static void receiveDarknessUpdate(float factor)
 	{
-		ClientPlayerEntity player = Minecraft.getInstance().player;
+		LocalPlayer player = Minecraft.getInstance().player;
 		if (player != null)
 		{
 			player.getCapability(DarknessHandlerProvider.CAP).ifPresent(cap -> ((DarknessHandler)cap).set_factor(factor));
 		}
 	}
 	
-	private static void _shareDarknessUpdate(ServerPlayerEntity player, DarknessHandler dh)
+	private static void _shareDarknessUpdate(ServerPlayer player, DarknessHandler dh)
 	{
 		if (dh.dirty)
 		{
@@ -64,7 +65,7 @@ public class DarknessProcessor
 		}
 	}
 	
-	private static void _tickDarkness(final ServerPlayerEntity player, final DarknessHandler dh)
+	private static void _tickDarkness(final Player player, final DarknessHandler dh)
 	{
 		int th = _getLightLevelThreshold();
 		int total = _calcTotalLightValue(player);
@@ -111,12 +112,12 @@ public class DarknessProcessor
 		}
 	}
 	
-	private static void _kill(ServerPlayerEntity player)
+	private static void _kill(Player player)
 	{
 		player.hurt(DarknessDamageSource.DARKNESS, Float.MAX_VALUE);
 	}
 	
-	private static void _damage(ServerPlayerEntity player)
+	private static void _damage(Player player)
 	{
 		player.hurt(DarknessDamageSource.DARKNESS, _getDamage());
 	}
@@ -213,7 +214,7 @@ public class DarknessProcessor
 		}
 	}
 	
-	private static int _calcTotalLightValue(ServerPlayerEntity player)
+	private static int _calcTotalLightValue(Player player)
 	{
 		return player.level.getMaxLocalRawBrightness(player.blockPosition())
 				+ _getShinyValueForItems(player.getMainHandItem().getItem(), player.getOffhandItem().getItem());
@@ -285,7 +286,7 @@ public class DarknessProcessor
 		return 0;
 	}
 	
-	private static void _handleEffects(ServerPlayerEntity player, DarknessHandler dh)
+	private static void _handleEffects(Player player, DarknessHandler dh)
 	{
 		float factor = dh.get_factor();
 		if (factor < _effLowerBound)
@@ -302,7 +303,7 @@ public class DarknessProcessor
 		}
 	}
 	
-	private static void _reapplyEffects(ServerPlayerEntity player, DarknessHandler dh)
+	private static void _reapplyEffects(Player player, DarknessHandler dh)
 	{
 		for (DarknessEffect de : dh.reappliedEffects)
 		{

@@ -149,7 +149,7 @@ public class DarknessHandler implements IDarknessEmbrace
 	}
 
 	@Override
-	public void serializeNBT(CompoundNBT tag)
+	public void serializeNBT(CompoundTag tag)
 	{
 		tag.putFloat("factor", get_factor());
 		tag.putFloat("delay", get_delayValue());
@@ -158,7 +158,7 @@ public class DarknessHandler implements IDarknessEmbrace
 	}
 
 	@Override
-	public void deserializeNBT(CompoundNBT tag)
+	public void deserializeNBT(CompoundTag tag)
 	{
 		set_factor(tag.getFloat("factor"));
 		set_delayValue(tag.getFloat("delay"));

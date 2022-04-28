@@ -3,16 +3,16 @@ package dcaedll.ominousdarkness.capability;
 import javax.annotation.*;
 
 import dcaedll.ominousdarkness.*;
+import net.minecraft.core.*;
 import net.minecraft.nbt.*;
-import net.minecraft.util.*;
+import net.minecraft.resources.*;
 import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.common.util.*;
 
-public class DarknessHandlerProvider implements ICapabilitySerializable<CompoundNBT>
+public class DarknessHandlerProvider implements ICapabilitySerializable<CompoundTag>
 {
-	@CapabilityInject(IDarknessEmbrace.class)
-	public static final Capability<IDarknessEmbrace> CAP = null;
 	public static final ResourceLocation RESOURCE = new ResourceLocation(OminousDarkness.MODID, "darkness_handler");
+	public static final Capability<IDarknessEmbrace> CAP = CapabilityManager.get(new CapabilityToken<>() {});
 	
 	private final IDarknessEmbrace _cap;
 	private final LazyOptional<IDarknessEmbrace> _lazyOpt;
@@ -30,14 +30,16 @@ public class DarknessHandlerProvider implements ICapabilitySerializable<Compound
 	}
 
 	@Override
-	public CompoundNBT serializeNBT()
+	public CompoundTag serializeNBT()
 	{
-		return (CompoundNBT)CAP.getStorage().writeNBT(CAP, _cap, null);
+		CompoundTag tag = new CompoundTag();
+		_cap.serializeNBT(tag);
+		return tag;
 	}
 
 	@Override
-	public void deserializeNBT(CompoundNBT nbt)
+	public void deserializeNBT(CompoundTag nbt)
 	{
-		CAP.getStorage().readNBT(CAP, _cap, null, nbt);
+		_cap.deserializeNBT(nbt);
 	}
 }
