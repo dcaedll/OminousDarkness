@@ -6,6 +6,10 @@
 		"1.0.1": "Updated death message string",
 		"1.0.0": "Initial release"
 	},
+	"1.17.1":
+	{
+		"1.0.0": "Initial release"
+	},
 	"1.16.5":
 	{
 		"1.0.0": "Initial release"
@@ -14,6 +18,8 @@
 	{
 		"1.18.2-latest": "1.0.2",
 		"1.18.2-recommended": "1.0.2",
+		"1.17.1-latest": "1.0.0",
+		"1.17.1-recommended": "1.0.0",
 		"1.16.5-latest": "1.0.0",
 		"1.16.5-recommended": "1.0.0"
 	}
