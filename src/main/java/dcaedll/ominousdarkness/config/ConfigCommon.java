@@ -12,6 +12,8 @@ public class ConfigCommon
 	public final DoubleValue growth;
 	public final DoubleValue falloff;
 	public final BooleanValue darknessKills;
+	public final ConfigValue<List<? extends Object>> dimBlacklist;
+	public final BooleanValue dimListAsWhitelist;
 	
 	public final DoubleValue damage;
 	public final DoubleValue damageInterval;
@@ -44,6 +46,20 @@ public class ConfigCommon
 				.comment("", "Whether the darkness should kill a player upon fully consuming them")
 				.define("darkness_kills", true);
 		
+		builder.comment("Any dimension-related configuration").push("dimension");
+		
+		List<String> dimPath = new ArrayList<String>();
+		dimPath.add("dim_blacklist");
+		
+		dimBlacklist = builder
+				.comment("", "The list of dimension registry names where the effects of the darkness should be disabled",
+				"e.g., \"minecraft:overworld\", \"minecraft:the_nether\", \"minecraft:the_end\"")
+				.defineListAllowEmpty(dimPath, () -> new ArrayList<>(), ConfigCommon::_itemIsNotBlankString);
+		dimListAsWhitelist = builder
+				.comment("", "Whether to use dimension blacklist as whitelist instead")
+				.define("dim_blacklist_as_whitelist", false);
+		
+		builder.pop();
 		builder.comment("Any damage-over-time-related configuration").push("damage");
 		
 		damage = builder
@@ -63,7 +79,7 @@ public class ConfigCommon
 		
 		List<String> shinyItemsPath = new ArrayList<String>();
 		shinyItemsPath.add("shiny_items");
-		List<String> shinyItemsDef = initVanillaShinyItems();
+		List<String> shinyItemsDef = _initVanillaShinyItems();
 		
 		shinyItems = builder
 				.comment("", "Items that should add to the total light value when a player is holding them in either hand",
@@ -71,7 +87,7 @@ public class ConfigCommon
 						"$N can be omitted, in this case it is implied that the item has the light value of 15",
 						"If the player is holding two items specified in this list (one in each hand), their light values are summed",
 						"Stack size does not participate in calculations")
-				.defineListAllowEmpty(shinyItemsPath, () -> shinyItemsDef, item -> itemIsNotBlankString(item));
+				.defineListAllowEmpty(shinyItemsPath, () -> shinyItemsDef, ConfigCommon::_itemIsNotBlankString);
 		
 		List<String> effectsPath = new ArrayList<String>();
 		effectsPath.add("effects");
@@ -88,15 +104,15 @@ public class ConfigCommon
 						"\"minecraft:hunger[duration=2][timing=50%]\" would apply Hunger I to a player for 2 seconds roughly halfway through (that is, if growth_time is set to 20, the effect would be applied at 10 seconds)",
 						"\"minecraft:slowness[timing=2.8s][level=2]\" would apply Slowness II to a player for as long as they are being consumed by the darkness, starting at 2.8 seconds",
 						"\"minecraft:strength\" would apply Strength I to a player right after they start gaining the darkness level, with the effect persisting for as long as their darkness level is higher than 0")
-				.defineListAllowEmpty(effectsPath, () -> effectsDef, item -> itemIsNotBlankString(item));
+				.defineListAllowEmpty(effectsPath, () -> effectsDef, ConfigCommon::_itemIsNotBlankString);
 	}
 	
-	private static boolean itemIsNotBlankString(Object item)
+	private static boolean _itemIsNotBlankString(Object item)
 	{
 		return item instanceof String && !((String)item).isBlank();
 	}
 	
-	private static ArrayList<String> initVanillaShinyItems()
+	private static ArrayList<String> _initVanillaShinyItems()
 	{
 		ArrayList<String> list = new ArrayList<String>();
 		String[] shiny = new String[]

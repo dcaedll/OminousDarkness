@@ -1,2 +1,5 @@
+1.1.0:
+	- New configuration option: dimension black/whitelist.
+
 1.0.0:
 	- Initial release.

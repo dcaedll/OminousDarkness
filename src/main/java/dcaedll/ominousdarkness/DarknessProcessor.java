@@ -32,10 +32,18 @@ public class DarknessProcessor
     		if (cap instanceof DarknessHandler)
     		{
     			DarknessHandler dh = (DarknessHandler)cap;
-    			_tickDarkness(player, dh);
-    			_shareDarknessUpdate(player, dh);
+    			if (_validatePlayerDim(player, dh))
+    			{
+    				_tickDarkness(player, dh);
+    				_shareDarknessUpdate(player, dh);
+    			}
     		}
     	});
+	}
+	
+	public static void onConfigSetUp()
+	{
+		reloadEffects();
 	}
 	
 	public static void reloadEffects()
@@ -202,6 +210,26 @@ public class DarknessProcessor
 	private static void _logEffectParameterError(String param, String value)
 	{
 		OminousDarkness.LOGGER.error("Invalid effect parameter {} with value {}", param, value);
+	}
+	
+	private static boolean _validatePlayerDim(ServerPlayer player, DarknessHandler dh)
+	{
+		if (player.getLevel().dimension().location() != dh.dim)
+		{
+			String dim = (dh.dim = player.getLevel().dimension().location()).toString();
+			dh.isInSuitableDim = _dimIsWhitelist() ? _dimContains(dim) : !_dimContains(dim);
+		}
+		return dh.isInSuitableDim;
+	}
+	
+	private static boolean _dimContains(String dim)
+	{
+		return ConfigHandler.getCommonCustom().dimBlacklist.get().contains(dim);
+	}
+
+	private static boolean _dimIsWhitelist()
+	{
+		return ConfigHandler.getCommonCustom().dimListAsWhitelist.get().booleanValue();
 	}
 	
 	private static void _updateEffectsLowerBound()

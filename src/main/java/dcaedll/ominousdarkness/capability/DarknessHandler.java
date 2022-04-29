@@ -6,9 +6,13 @@ import dcaedll.ominousdarkness.*;
 import dcaedll.ominousdarkness.config.*;
 import dcaedll.ominousdarkness.util.*;
 import net.minecraft.nbt.*;
+import net.minecraft.resources.*;
 
 public class DarknessHandler implements IDarknessEmbrace
 {
+	public ResourceLocation dim;
+	public boolean isInSuitableDim;
+	
 	public final List<DarknessEffect> reappliedEffects = new ArrayList<>();
 	public int effectCounter;
 	public int reTickCounter;
