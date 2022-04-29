@@ -27,7 +27,7 @@ public class ConfigHandler
 	
 	public static void onModConfig(final ModConfigEvent event)
 	{
-		DarknessProcessor.reloadEffects();
+		DarknessProcessor.onConfigSetUp();
 	}
 	
 	public static ConfigCommon getCommonCustom()
