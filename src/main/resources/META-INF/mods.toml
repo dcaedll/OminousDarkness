@@ -1,6 +1,6 @@
 modLoader="javafml"
 loaderVersion="[40,)"
-license="MIT"
+license="https://raw.githubusercontent.com/dcaedll/OminousDarkness/main/LICENSE"
 issueTrackerURL="https://github.com/dcaedll/OminousDarkness/issues"
 
 [[mods]]
@@ -24,11 +24,5 @@ Watch out and make sure to bring some light with you to dispel the darkness!
     modId="forge"
     mandatory=true
     versionRange="[40,)"
-    ordering="NONE"
-    side="BOTH"
-[[dependencies.ominousdarkness]]
-    modId="minecraft"
-    mandatory=true
-    versionRange="[1.18.2,1.19)"
     ordering="NONE"
     side="BOTH"

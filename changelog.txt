@@ -1,3 +1,8 @@
+1.1.0:
+	- New configuration option: dimension black/whitelist;
+	- Added the missing death message string for when a player was recently hurt by something else, but ultimately died to the darkness;
+	- Removed the explicit dependence on Minecraft 1.18.2.
+
 1.0.2:
 	- Updated base filename;
 	- Asset pack now has a correct id;

@@ -27,11 +27,12 @@ public class ConfigHandler
 	
 	public static void configLoading(final ModConfigEvent.Loading event)
 	{
-		DarknessProcessor.reloadEffects();
+		DarknessProcessor.onConfigSetUp();
 	}
 	
 	public static void configReloading(final ModConfigEvent.Reloading event)
 	{
+		DarknessProcessor.onConfigSetUp();
 	}
 	
 	public static ConfigCommon getCommonCustom()
