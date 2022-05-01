@@ -1,8 +1,11 @@
 package dcaedll.ominousdarkness;
 
-import org.slf4j.*;
+//import org.slf4j.*;
 
-import com.mojang.logging.*;
+import org.apache.logging.log4j.*;
+import org.apache.logging.log4j.Logger;
+
+//import com.mojang.logging.*;
 
 import dcaedll.ominousdarkness.client.*;
 import dcaedll.ominousdarkness.config.*;
@@ -17,7 +20,7 @@ import net.minecraftforge.fml.javafmlmod.*;
 public class OminousDarkness
 {
 	public static final String MODID = "ominousdarkness";
-    public static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger();
 	
     static
     {

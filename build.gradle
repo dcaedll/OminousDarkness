@@ -19,7 +19,7 @@ apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
 version = project.mod_version
 group = project.developer + '.' + project.mod_id
-archivesBaseName = project.archives_base_name + '-' + project.minecraft_version + '-forge-' + project.forge_version
+archivesBaseName = "${project.archives_base_name}-forge-${project.mc_display_version}"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
