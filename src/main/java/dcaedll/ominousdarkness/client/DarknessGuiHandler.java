@@ -12,18 +12,20 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.texture.*;
 import net.minecraft.world.level.block.*;
 import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.client.gui.*;
+import net.minecraftforge.client.event.*;
+import net.minecraftforge.eventbus.api.*;
 
 @SuppressWarnings("deprecation")
 @OnlyIn(Dist.CLIENT)
 public class DarknessGuiHandler
 {
-	public static void init()
+	@SubscribeEvent
+	public void renderGui(RenderGuiEvent.Pre event)
 	{
-    	OverlayRegistry.registerOverlayAbove(ForgeIngameGui.VIGNETTE_ELEMENT, "darknesstakeme.vignette", DarknessGuiHandler::_renderDarknessEffect);
+		_renderDarknessEffect();
 	}
 	
-	private static void _renderDarknessEffect(ForgeIngameGui gui, PoseStack poseStack, float partialTicks, int screenWidth, int screenHeight)
+	private static void _renderDarknessEffect()
 	{
 		Minecraft mc = Minecraft.getInstance();
 		LocalPlayer player = mc.player;
@@ -40,7 +42,7 @@ public class DarknessGuiHandler
 			RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_BLOCKS);
 			RenderSystem.setShaderColor(0.107f, 0.083f, 0.201f, cap.get_factor() * 0.96f);
 		    RenderSystem.setShader(GameRenderer::getPositionTexShader);
-		    _renderPortalIcon(mc, screenWidth, screenHeight);
+		    _renderPortalIcon(mc, mc.getWindow().getGuiScaledWidth(), mc.getWindow().getGuiScaledHeight());
 			RenderSystem.disableBlend();
 			RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
 		});

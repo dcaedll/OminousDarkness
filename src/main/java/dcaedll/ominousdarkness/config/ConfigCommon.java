@@ -37,7 +37,7 @@ public class ConfigCommon
 		growth = builder
 				.comment("", "The time (in seconds) it takes for the darkness to fully consume a player",
 						"In this context, 0 would mean that the darkness should consume the player instantly, once in an unlit area")
-				.defineInRange("growth_time", 7.0f, 0.0f, max);
+				.defineInRange("growth_time", 10.0f, 0.0f, max);
 		falloff = builder
 				.comment("", "The time (in seconds) it takes for the darkness to fall off",
 						"In this context, 0 would mean that the darkness should fall off instantly, once in a lit enough area")

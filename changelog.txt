@@ -1,23 +1,3 @@
-1.1.1:
-	- Ensured compatibility with Forge major version 38+ (mc 1.18.x);
-	- Updated base filename.
-
-1.1.0:
-	- New configuration option: dimension black/whitelist;
-	- Added the missing death message string for when a player was recently hurt by something else, but ultimately died to the darkness;
-	- Removed the explicit dependence on Minecraft 1.18.2.
-
-1.0.2:
-	- Updated base filename;
-	- Asset pack now has a correct id;
-	- Minor decorative changes.
-
-	QoL:
-	- Made overlay effect slightly more bright and also upped its alpha threshold;
-	- Players in spectator gamemode no longer get processed and killed. Overlay effect is also no longer rendered for them.
-
-1.0.1:
-	- Updated death message string.
-
 1.0.0:
-	- Initial release.
+	- Initial release;
+	- Slightly increased the default darkness growth time.

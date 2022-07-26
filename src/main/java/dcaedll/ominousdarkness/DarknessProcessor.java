@@ -9,6 +9,7 @@ import dcaedll.ominousdarkness.config.*;
 import dcaedll.ominousdarkness.net.*;
 import net.minecraft.client.*;
 import net.minecraft.client.player.*;
+import net.minecraft.core.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
@@ -283,12 +284,12 @@ public class DarknessProcessor
 		for (Object item : shiny)
 		{
 			String[] split = _splitShinyItemString((String)item);
-			if (!flag1 && item1.getRegistryName().toString().equals(split[0]))
+			if (!flag1 && Registry.ITEM.getKey(item1).toString().equals(split[0]))
 			{
 				val += (split.length >= 2 ? _getShinyValueForItem(item1, split[1]) : 0xF);
 				flag1 = true;
 			}
-			if (!flag2 && item2.getRegistryName().toString().equals(split[0]))
+			if (!flag2 && Registry.ITEM.getKey(item2).toString().equals(split[0]))
 			{
 				val += (split.length >= 2 ? _getShinyValueForItem(item2, split[1]) : 0xF);
 				flag2 = true;

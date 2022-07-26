@@ -1,11 +1,6 @@
 package dcaedll.ominousdarkness;
 
-//import org.slf4j.*;
-
 import org.apache.logging.log4j.*;
-import org.apache.logging.log4j.Logger;
-
-//import com.mojang.logging.*;
 
 import dcaedll.ominousdarkness.client.*;
 import dcaedll.ominousdarkness.config.*;
@@ -46,6 +41,6 @@ public class OminousDarkness
     
     private void _clientSetup(final FMLClientSetupEvent event)
     {
-    	DarknessGuiHandler.init();
+    	MinecraftForge.EVENT_BUS.register(new DarknessGuiHandler());
     }
 }

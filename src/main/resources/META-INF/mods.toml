@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[38,)"
+loaderVersion="[41,)"
 license="https://raw.githubusercontent.com/dcaedll/OminousDarkness/main/LICENSE"
 issueTrackerURL="https://github.com/dcaedll/OminousDarkness/issues"
 
@@ -12,6 +12,7 @@ displayURL="https://github.com/dcaedll/OminousDarkness"
 logoFile="ominous_darkness_logo.png"
 credits="toujourspareil https://twitter.com/toujourspareil_"
 authors="dcaedll"
+displayTest="MATCH_VERSION"
 description='''
 Being in the darkness for too long is now life-threatening, as you start feeling the presence of something evil within.
 
@@ -23,6 +24,6 @@ Watch out and make sure to bring some light with you to dispel the darkness!
 [[dependencies.ominousdarkness]]
     modId="forge"
     mandatory=true
-    versionRange="[38,)"
+    versionRange="[41,)"
     ordering="NONE"
     side="BOTH"
