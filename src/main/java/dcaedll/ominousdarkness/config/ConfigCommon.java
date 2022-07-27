@@ -18,7 +18,10 @@ public class ConfigCommon
 	public final DoubleValue damage;
 	public final DoubleValue damageInterval;
 	public final DoubleValue damageDelay;
-	
+
+	public final BooleanValue showOverlay;
+	public final BooleanValue playSoundEffect;
+	public final DoubleValue soundEffectVolume;
 	public final ConfigValue<List<? extends Object>> shinyItems;
 	public final ConfigValue<List<? extends Object>> effects;
 	
@@ -37,7 +40,7 @@ public class ConfigCommon
 		growth = builder
 				.comment("", "The time (in seconds) it takes for the darkness to fully consume a player",
 						"In this context, 0 would mean that the darkness should consume the player instantly, once in an unlit area")
-				.defineInRange("growth_time", 7.0f, 0.0f, max);
+				.defineInRange("growth_time", 10.0f, 0.0f, max);
 		falloff = builder
 				.comment("", "The time (in seconds) it takes for the darkness to fall off",
 						"In this context, 0 would mean that the darkness should fall off instantly, once in a lit enough area")
@@ -76,6 +79,16 @@ public class ConfigCommon
 		
 		builder.pop();
 		builder.comment("Miscellaneous configuration").push("misc");
+		
+		showOverlay = builder
+				.comment("", "Whether to show the darkness overlay")
+				.define("show_overlay", true);
+		playSoundEffect = builder
+				.comment("", "Whether to play the darkness sound effect")
+				.define("play_sound_effect", true);
+		soundEffectVolume = builder
+				.comment("", "The darkness sound effect's volume")
+				.defineInRange("sound_effect_volume", .8f, 0.0f, 1.0f);
 		
 		List<String> shinyItemsPath = new ArrayList<String>();
 		shinyItemsPath.add("shiny_items");

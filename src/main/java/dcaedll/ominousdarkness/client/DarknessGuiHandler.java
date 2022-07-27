@@ -6,6 +6,7 @@ import com.mojang.blaze3d.systems.*;
 import com.mojang.blaze3d.vertex.*;
 
 import dcaedll.ominousdarkness.capability.*;
+import dcaedll.ominousdarkness.config.ConfigHandler;
 import net.minecraft.client.*;
 import net.minecraft.client.player.*;
 import net.minecraft.client.renderer.*;
@@ -25,6 +26,8 @@ public class DarknessGuiHandler
 	
 	private static void _renderDarknessEffect(ForgeIngameGui gui, PoseStack poseStack, float partialTicks, int screenWidth, int screenHeight)
 	{
+		if (!ConfigHandler.getCommonCustom().showOverlay.get())
+			return;
 		Minecraft mc = Minecraft.getInstance();
 		LocalPlayer player = mc.player;
 		if (player.isCreative() || player.isSpectator())
