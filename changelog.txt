@@ -1,3 +1,8 @@
+1.2.0:
+	- Added the darkness sound effect;
+	- Added the configuration options for toggling darkness overlay and sound effect on/off;
+	- Added the configuration option for changing the sound effect's volume.
+
 1.1.1:
 	- Ensured compatibility with Forge major version 38+ (mc 1.18.x);
 	- Updated base filename.

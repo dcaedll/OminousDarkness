@@ -19,6 +19,9 @@ public class ConfigCommon
 	public final DoubleValue damageInterval;
 	public final DoubleValue damageDelay;
 	
+	public final BooleanValue showOverlay;
+	public final BooleanValue playSoundEffect;
+	public final DoubleValue soundEffectVolume;
 	public final ConfigValue<List<? extends Object>> shinyItems;
 	public final ConfigValue<List<? extends Object>> effects;
 	
@@ -76,6 +79,16 @@ public class ConfigCommon
 		
 		builder.pop();
 		builder.comment("Miscellaneous configuration").push("misc");
+		
+		showOverlay = builder
+				.comment("", "Whether to show the darkness overlay")
+				.define("show_overlay", true);
+		playSoundEffect = builder
+				.comment("", "Whether to play the darkness sound effect")
+				.define("play_sound_effect", true);
+		soundEffectVolume = builder
+				.comment("", "The darkness sound effect's volume")
+				.defineInRange("sound_effect_volume", .8f, 0.0f, 1.0f);
 		
 		List<String> shinyItemsPath = new ArrayList<String>();
 		shinyItemsPath.add("shiny_items");
