@@ -1,3 +1,9 @@
+1.2.0:
+	- Added the darkness sound effect;
+	- Added the configuration options for toggling darkness overlay and sound effect on/off;
+	- Added the configuration option for changing the sound effect's volume;
+	- Slightly increased the default darkness growth time.
+
 1.1.0:
 	- New configuration option: dimension black/whitelist.
 

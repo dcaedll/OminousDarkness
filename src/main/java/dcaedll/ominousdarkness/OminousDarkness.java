@@ -1,15 +1,16 @@
 package dcaedll.ominousdarkness;
 
 import org.apache.logging.log4j.*;
-import org.apache.logging.log4j.Logger;
 
 import dcaedll.ominousdarkness.capability.*;
 import dcaedll.ominousdarkness.client.*;
 import dcaedll.ominousdarkness.config.*;
 import dcaedll.ominousdarkness.event.*;
 import dcaedll.ominousdarkness.net.*;
+import dcaedll.ominousdarkness.sound.*;
 import net.minecraftforge.common.*;
 import net.minecraftforge.common.capabilities.*;
+import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.event.lifecycle.*;
 import net.minecraftforge.fml.javafmlmod.*;
@@ -29,10 +30,13 @@ public class OminousDarkness
     {
     	ConfigHandler.register();
     	
-    	FMLJavaModLoadingContext.get().getModEventBus().addListener(ConfigHandler::onModConfig);
-    	FMLJavaModLoadingContext.get().getModEventBus().addListener(this::_setup);
-    	FMLJavaModLoadingContext.get().getModEventBus().addListener(this::_clientSetup);
+    	IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    	
+    	eventBus.addListener(ConfigHandler::onModConfig);
+    	eventBus.addListener(this::_setup);
+    	eventBus.addListener(this::_clientSetup);
     	MinecraftForge.EVENT_BUS.register(new EventHandler());
+    	SoundEventHandler.register(eventBus);
     }
     
     private void _setup(final FMLCommonSetupEvent event)

@@ -6,6 +6,7 @@ import com.mojang.blaze3d.matrix.*;
 import com.mojang.blaze3d.systems.*;
 
 import dcaedll.ominousdarkness.capability.*;
+import dcaedll.ominousdarkness.config.*;
 import net.minecraft.block.*;
 import net.minecraft.client.*;
 import net.minecraft.client.entity.player.*;
@@ -36,6 +37,8 @@ public class DarknessGuiHandler
 	
 	private static void _renderDarknessEffect(MatrixStack matrixStack, MainWindow window)
 	{
+		if (!ConfigHandler.getCommonCustom().showOverlay.get())
+			return;
 		Minecraft mc = Minecraft.getInstance();
 		ClientPlayerEntity player = mc.player;
 		if (player.isCreative() || player.isSpectator())
