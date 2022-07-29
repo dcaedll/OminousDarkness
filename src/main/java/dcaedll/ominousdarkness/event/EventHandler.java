@@ -2,12 +2,13 @@ package dcaedll.ominousdarkness.event;
 
 import dcaedll.ominousdarkness.*;
 import dcaedll.ominousdarkness.capability.*;
-import dcaedll.ominousdarkness.sound.*;
+import dcaedll.ominousdarkness.client.*;
 import net.minecraft.client.entity.player.*;
 import net.minecraft.client.world.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.*;
 import net.minecraft.world.*;
+import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.event.*;
 import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.event.world.*;
@@ -27,21 +28,29 @@ public class EventHandler
     @SubscribeEvent
     public void playerTick(final TickEvent.PlayerTickEvent event)
 	{
-    	if (event.phase == TickEvent.Phase.END)
+    	if (event.phase == TickEvent.Phase.END && event.side == LogicalSide.SERVER && event.player instanceof ServerPlayerEntity)
     	{
-    		if (event.side == LogicalSide.SERVER && event.player instanceof ServerPlayerEntity)
-    			DarknessProcessor.tickPlayer((ServerPlayerEntity)event.player);
-    		else if (event.side == LogicalSide.CLIENT && event.player instanceof ClientPlayerEntity)
-    			SoundEventHandler.playDarknessSoundEffects((ClientPlayerEntity)event.player);
+    		DarknessProcessor.tickPlayer((ServerPlayerEntity)event.player);
     	}
 	}
-
+    
+    @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
-    public void levelLoad(final WorldEvent.Load event)
+    public void localPlayerTick(final TickEvent.PlayerTickEvent event)
+    {
+    	if (event.phase == TickEvent.Phase.END && event.side == LogicalSide.CLIENT && event.player instanceof ClientPlayerEntity)
+    	{
+    		SoundPlayback.playDarknessSoundEffects((ClientPlayerEntity)event.player);
+    	}
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    @SubscribeEvent
+    public void localLevelLoad(final WorldEvent.Load event)
     {
     	IWorld level = event.getWorld();
     	if (level instanceof ClientWorld)
-    		SoundEventHandler.onClientLevelLoad((ClientWorld)level);
+    		SoundPlayback.onClientLevelLoad((ClientWorld)level);
     }
     
     @SubscribeEvent
