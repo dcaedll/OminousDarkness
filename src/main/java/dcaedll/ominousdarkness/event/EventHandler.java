@@ -2,16 +2,16 @@ package dcaedll.ominousdarkness.event;
 
 import dcaedll.ominousdarkness.*;
 import dcaedll.ominousdarkness.capability.*;
-import dcaedll.ominousdarkness.sound.*;
+import dcaedll.ominousdarkness.client.*;
 import net.minecraft.client.multiplayer.*;
 import net.minecraft.client.player.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
+import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.event.*;
-import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.event.world.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.*;
@@ -35,27 +35,28 @@ public class EventHandler
     @SubscribeEvent
     public void playerTick(final TickEvent.PlayerTickEvent event)
 	{
-    	if (event.phase == TickEvent.Phase.END)
+    	if (event.phase == TickEvent.Phase.END && event.side == LogicalSide.SERVER && event.player instanceof ServerPlayer)
     	{
-    		if (event.side == LogicalSide.SERVER && event.player instanceof ServerPlayer)
-    			DarknessProcessor.tickPlayer((ServerPlayer)event.player);
-    		else if (event.side == LogicalSide.CLIENT && event.player instanceof LocalPlayer)
-    			SoundEventHandler.playDarknessSoundEffects((LocalPlayer)event.player);
+    		DarknessProcessor.tickPlayer((ServerPlayer)event.player);
     	}
-    	
 	}
 
+    @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
-    public void levelLoad(final WorldEvent.Load event)
+    public void localPlayerTick(final TickEvent.PlayerTickEvent event)
+    {
+    	if (event.phase == TickEvent.Phase.END && event.side == LogicalSide.CLIENT && event.player instanceof LocalPlayer)
+    	{
+    		SoundPlayback.playDarknessSoundEffects((LocalPlayer)event.player);
+    	}
+    }
+    
+    @OnlyIn(Dist.CLIENT)
+    @SubscribeEvent
+    public void localLevelLoad(final WorldEvent.Load event)
     {
     	LevelAccessor level = event.getWorld();
     	if (level instanceof ClientLevel)
-    		SoundEventHandler.onClientLevelLoad((ClientLevel)level);
-    }
-    
-    @SubscribeEvent
-    public void playerClone(final PlayerEvent.Clone event)
-    {
-    	
+    		SoundPlayback.onClientLevelLoad((ClientLevel)level);
     }
 }
